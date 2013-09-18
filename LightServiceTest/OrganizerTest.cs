@@ -10,6 +10,13 @@ namespace LightServiceTest {
             Assert.IsTrue(LightService.Organizer.With().context is LightService.Context, "Organizer default context wasn't an instance of LightService.Context");
         }
 
+        [TestMethod]
+        public void ItUsesTheContextPassedIntoWith() {
+            LightService.Context context = new LightService.Context();
+            LightService.Organizer org = LightService.Organizer.With(context);
+            Assert.AreSame(context, org.context);
+        }
+
     }
 
     //internal class ExampleOrganizer : LightService.Organizer {

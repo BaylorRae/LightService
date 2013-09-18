@@ -4,12 +4,16 @@ namespace LightService {
     public class Organizer {
         public Context context = null;
 
-        public Organizer() {
-            this.context = new Context();
+        public Organizer(Context context) {
+            this.context = context;
         }
 
-        public static Organizer With() {
-            return new Organizer();
+        public static Organizer With(Context context = null) {
+            if( context == null ) {
+                context = new Context();
+            }
+
+            return new Organizer(context);
         }
 
     }
