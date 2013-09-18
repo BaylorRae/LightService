@@ -1,12 +1,12 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace LightServiceTest {
-    [TestClass]
+    [TestFixture]
     public class ContextTest {
 
-        [TestMethod]
+        [Test]
         public void ContextIsADictionary() {
             LightService.Context context = new LightService.Context();
 

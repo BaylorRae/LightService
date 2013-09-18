@@ -1,16 +1,16 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LightServiceTest {
-    [TestClass]
+    [TestFixture]
     public class OrganizerTest {
 
-        [TestMethod]
+        [Test]
         public void WithCreatesADefaultContext() {
             Assert.IsTrue(LightService.Organizer.With().context is LightService.Context, "Organizer default context must be an instance of LightService.Context");
         }
 
-        [TestMethod]
+        [Test]
         public void ItUsesTheContextPassedIntoWith() {
             LightService.Context context = new LightService.Context();
             LightService.Organizer org = LightService.Organizer.With(context);
