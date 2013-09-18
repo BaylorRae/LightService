@@ -2,7 +2,7 @@
 
 namespace LightService {
     public class Organizer {
-        public Context context = null;
+        public Context context { get; private set; }
 
         public Organizer(Context context) {
             this.context = context;
