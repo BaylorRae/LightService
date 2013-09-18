@@ -7,7 +7,7 @@ namespace LightServiceTest {
 
         [TestMethod]
         public void WithCreatesADefaultContext() {
-            Assert.IsTrue(LightService.Organizer.With().context is LightService.Context, "Organizer default context wasn't an instance of LightService.Context");
+            Assert.IsTrue(LightService.Organizer.With().context is LightService.Context, "Organizer default context must be an instance of LightService.Context");
         }
 
         [TestMethod]
