@@ -15,6 +15,5 @@ namespace LightService {
 
             return new Organizer(context);
         }
-
     }
 }
