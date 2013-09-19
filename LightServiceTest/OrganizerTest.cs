@@ -40,6 +40,16 @@ namespace LightServiceTest {
         }
 
         [Test]
+        public void ReduceReturnsTheOrganizersContext() {
+            LightService.Context context = new LightService.Context();
+
+            LightService.Organizer org = LightService.Organizer.With(context);
+            LightService.Context newContext = org.Reduce(new LightService.IAction[] { new ExampleAction() });
+
+            Assert.AreSame(org.context, newContext);
+        }
+
+        [Test]
         public void ReduceUpdatesContextWhenAnActionIsCalled() {
             // create a custom context
             LightService.Context context = new LightService.Context();
@@ -50,16 +60,6 @@ namespace LightServiceTest {
             // calling the action should update the organizer's context
             string message = newContext["message"];
             Assert.AreEqual("updated context message", message);
-        }
-
-        [Test]
-        public void ReduceReturnsTheOrganizersContext() {
-            LightService.Context context = new LightService.Context();
-
-            LightService.Organizer org = LightService.Organizer.With(context);
-            LightService.Context newContext = org.Reduce(new LightService.IAction[] { new ExampleAction() });
-
-            Assert.AreSame(org.context, newContext);
         }
 
     }
