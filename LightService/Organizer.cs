@@ -20,10 +20,12 @@ namespace LightService {
             return new Organizer(context);
         }
 
-        public void Reduce(IAction[] actions) {
+        public Context Reduce(IAction[] actions) {
             foreach( IAction action in actions ) {
                 this.context = action.Executed(this.context);
             }
+
+            return this.context;
         }
     }
 }

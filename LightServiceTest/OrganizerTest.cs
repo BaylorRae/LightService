@@ -54,7 +54,12 @@ namespace LightServiceTest {
 
         [Test]
         public void ReduceReturnsTheOrganizersContext() {
-            Assert.Ignore("pending");
+            LightService.Context context = new LightService.Context();
+
+            LightService.Organizer org = LightService.Organizer.With(context);
+            LightService.Context newContext = org.Reduce(new LightService.IAction[] { new ExampleAction() });
+
+            Assert.AreSame(org.context, newContext);
         }
 
     }
