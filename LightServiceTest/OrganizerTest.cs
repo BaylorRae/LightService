@@ -41,20 +41,20 @@ namespace LightServiceTest {
 
         [Test]
         public void ReduceUpdatesContextWhenAnActionIsCalled() {
-            MessageUpdatingAction action = new MessageUpdatingAction();
-
-            LightService.IAction[] actions = new LightService.IAction[] { action };
-
             // create a custom context
             LightService.Context context = new LightService.Context();
             context.Add("message", "default");
-
-            LightService.Organizer org = LightService.Organizer.With(context);
-            org.Reduce(actions);
+            
+            LightService.Context newContext = MessageUpdatingOrganizer.UpdateContext(context);
 
             // calling the action should update the organizer's context
-            string message = org.context["message"];
+            string message = newContext["message"];
             Assert.AreEqual("updated context message", message);
+        }
+
+        [Test]
+        public void ReduceReturnsTheOrganizersContext() {
+            Assert.Ignore("pending");
         }
 
     }
@@ -72,19 +72,28 @@ namespace LightServiceTest {
         }
     }
 
-    public class MessageUpdatingAction : LightService.IAction {
-        public LightService.Context Executed(LightService.Context context) {
-            context["message"] = "updated context message";
-            return context;
-        }
-    }
-
     internal class ExampleOrganizer : LightService.Organizer {
 
         public static void DoSomething(LightService.IAction[] actions) {
             With().Reduce(actions);
         }
 
+    }
+
+    internal class MessageUpdatingAction : LightService.IAction {
+        public LightService.Context Executed(LightService.Context context) {
+            context["message"] = "updated context message";
+            return context;
+        }
+    }
+
+    internal class MessageUpdatingOrganizer : LightService.Organizer {
+        public static LightService.Context UpdateContext(LightService.Context context) {
+            MessageUpdatingAction action = new MessageUpdatingAction();
+            LightService.Organizer org = With(context);
+            org.Reduce(new LightService.IAction[] { action });
+            return org.context;
+        }
     }
 
     //internal class ExampleOrganizer : LightService.Organizer {
