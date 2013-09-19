@@ -98,28 +98,4 @@ namespace LightServiceTest {
             return With(context).Reduce(new LightService.IAction[] { action });
         }
     }
-
-    //internal class ExampleOrganizer : LightService.Organizer {
-
-    //    public static bool SomeMethod() {
-    //        return true;
-    //    }
-
-    //    public static bool Add1and1() {
-    //        LightService.Action[] actions = new LightService.Action[] {
-    //            new ExampleAction()
-    //        };
-
-    //        return With(new { number = 1 }).Reduce(actions);
-    //    }
-
-    //}
-
-    //internal class ExampleAction : LightService.Action {
-
-    //    public LightService.Context executed(LightService.Context context) {
-    //        context.result = context.number + context.number;
-    //        return context;
-    //    }
-    //}
 }
