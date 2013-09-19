@@ -59,7 +59,7 @@ namespace LightServiceTest {
 
     }
 
-    public class ExampleAction : LightService.IAction {
+    internal class ExampleAction : LightService.IAction {
         public string Status { get; set; }
 
         public ExampleAction() {
