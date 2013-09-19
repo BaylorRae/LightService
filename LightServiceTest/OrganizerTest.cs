@@ -95,9 +95,7 @@ namespace LightServiceTest {
     internal class MessageUpdatingOrganizer : LightService.Organizer {
         public static LightService.Context UpdateContext(LightService.Context context) {
             MessageUpdatingAction action = new MessageUpdatingAction();
-            LightService.Organizer org = With(context);
-            org.Reduce(new LightService.IAction[] { action });
-            return org.context;
+            return With(context).Reduce(new LightService.IAction[] { action });
         }
     }
 
