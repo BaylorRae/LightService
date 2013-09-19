@@ -39,6 +39,24 @@ namespace LightServiceTest {
             Assert.AreEqual("called!!!", action2.Status, "LightService.Organizer Reduce only called a single action");
         }
 
+        [Test]
+        public void ReduceUpdatesContextWhenAnActionIsCalled() {
+            MessageUpdatingAction action = new MessageUpdatingAction();
+
+            LightService.IAction[] actions = new LightService.IAction[] { action };
+
+            // create a custom context
+            LightService.Context context = new LightService.Context();
+            context.Add("message", "default");
+
+            LightService.Organizer org = LightService.Organizer.With(context);
+            org.Reduce(actions);
+
+            // calling the action should update the organizer's context
+            string message = org.context["message"];
+            Assert.AreEqual("updated context message", message);
+        }
+
     }
 
     public class ExampleAction : LightService.IAction {
@@ -48,13 +66,17 @@ namespace LightServiceTest {
             this.Status = "hidy ho neighbor";
         }
 
-        public void Executed() {
+        public LightService.Context Executed(LightService.Context context) {
             this.Status = "called!!!";
+            return context;
         }
     }
 
-    public interface IExampleAction : LightService.IAction {
-        new void Executed();
+    public class MessageUpdatingAction : LightService.IAction {
+        public LightService.Context Executed(LightService.Context context) {
+            context["message"] = "updated context message";
+            return context;
+        }
     }
 
     internal class ExampleOrganizer : LightService.Organizer {

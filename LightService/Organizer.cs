@@ -22,7 +22,7 @@ namespace LightService {
 
         public void Reduce(IAction[] actions) {
             foreach( IAction action in actions ) {
-                action.Executed();
+                this.context = action.Executed(this.context);
             }
         }
     }

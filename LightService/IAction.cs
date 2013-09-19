@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace LightService {
     public interface IAction {
-        void Executed();
+        Context Executed(Context context);
     }
 }
