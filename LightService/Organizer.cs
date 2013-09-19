@@ -4,7 +4,11 @@ namespace LightService {
     public class Organizer {
         public Context context { get; private set; }
 
-        private Organizer(Context context) {
+        public Organizer() {
+            this.context = new Context();
+        }
+
+        public Organizer(Context context) {
             this.context = context;
         }
 
@@ -14,6 +18,12 @@ namespace LightService {
             }
 
             return new Organizer(context);
+        }
+
+        public void Reduce(IAction[] actions) {
+            foreach( IAction action in actions ) {
+                action.Executed();
+            }
         }
     }
 }

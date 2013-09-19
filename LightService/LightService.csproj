@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAction.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Organizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
