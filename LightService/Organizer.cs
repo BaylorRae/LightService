@@ -15,9 +15,9 @@ namespace LightService {
             this.context = context;
         }
 
-        public static Organizer<T> With(Context context = null) {
+        public static Organizer<T> With(T context = null) {
             if( context == null ) {
-                context = new Context();
+                context = (T) new Context();
             }
 
             return new Organizer<T>(context);
