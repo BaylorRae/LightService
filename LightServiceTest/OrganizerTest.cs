@@ -7,13 +7,13 @@ namespace LightServiceTest {
 
         [Test]
         public void WithCreatesADefaultContext() {
-            Assert.IsTrue(LightService.Organizer.With().context is LightService.Context, "Organizer default context must be an instance of LightService.Context");
+            Assert.IsTrue(LightService.Organizer<LightService.Context>.With().context is LightService.Context, "Organizer default context must be an instance of LightService.Context");
         }
 
         [Test]
         public void ItUsesTheContextPassedIntoWith() {
             LightService.Context context = new LightService.Context();
-            LightService.Organizer org = LightService.Organizer.With(context);
+            LightService.Organizer<LightService.Context> org = LightService.Organizer<LightService.Context>.With(context);
             Assert.AreSame(context, org.context);
         }
 
@@ -21,7 +21,7 @@ namespace LightServiceTest {
         public void ItCallsAnAction() {
             ExampleAction action = new ExampleAction();
 
-            LightService.IAction[] actions = new LightService.IAction[] { action };
+            LightService.IAction<LightService.Context>[] actions = new LightService.IAction<LightService.Context>[] { action };
             ExampleOrganizer.DoSomething(actions);
 
             Assert.AreEqual("called!!!", action.Status);
@@ -32,7 +32,7 @@ namespace LightServiceTest {
             ExampleAction action = new ExampleAction();
             ExampleAction action2 = new ExampleAction();
 
-            LightService.IAction[] actions = new LightService.IAction[] { action, action2 };
+            LightService.IAction<LightService.Context>[] actions = new LightService.IAction<LightService.Context>[] { action, action2 };
             ExampleOrganizer.DoSomething(actions);
 
             Assert.AreEqual("called!!!", action.Status);
@@ -43,8 +43,8 @@ namespace LightServiceTest {
         public void ReduceReturnsTheOrganizersContext() {
             LightService.Context context = new LightService.Context();
 
-            LightService.Organizer org = LightService.Organizer.With(context);
-            LightService.Context newContext = org.Reduce(new LightService.IAction[] { new ExampleAction() });
+            LightService.Organizer<LightService.Context> org = LightService.Organizer<LightService.Context>.With(context);
+            LightService.Context newContext = org.Reduce(new LightService.IAction<LightService.Context>[] { new ExampleAction() });
 
             Assert.AreSame(org.context, newContext);
         }
@@ -64,7 +64,7 @@ namespace LightServiceTest {
 
     }
 
-    internal class ExampleAction : LightService.IAction {
+    internal class ExampleAction : LightService.IAction<LightService.Context> {
         public string Status { get; set; }
 
         public ExampleAction() {
@@ -77,25 +77,25 @@ namespace LightServiceTest {
         }
     }
 
-    internal class ExampleOrganizer : LightService.Organizer {
+    internal class ExampleOrganizer : LightService.Organizer<LightService.Context> {
 
-        public static void DoSomething(LightService.IAction[] actions) {
+        public static void DoSomething(LightService.IAction<LightService.Context>[] actions) {
             With().Reduce(actions);
         }
 
     }
 
-    internal class MessageUpdatingAction : LightService.IAction {
+    internal class MessageUpdatingAction : LightService.IAction<LightService.Context> {
         public LightService.Context Executed(LightService.Context context) {
             context["message"] = "updated context message";
             return context;
         }
     }
 
-    internal class MessageUpdatingOrganizer : LightService.Organizer {
+    internal class MessageUpdatingOrganizer : LightService.Organizer<LightService.Context> {
         public static LightService.Context UpdateContext(LightService.Context context) {
             MessageUpdatingAction action = new MessageUpdatingAction();
-            return With(context).Reduce(new LightService.IAction[] { action });
+            return With(context).Reduce(new LightService.IAction<LightService.Context>[] { action });
         }
     }
 }

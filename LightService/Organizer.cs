@@ -1,27 +1,30 @@
 ﻿using System;
 
 namespace LightService {
-    public class Organizer {
-        public Context context { get; private set; }
+    public class Organizer<T> where T : Context {
+        public T context { get; private set; }
 
         public Organizer() {
-            this.context = new Context();
         }
 
         public Organizer(Context context) {
+            this.context = (T) context;
+        }
+
+        public Organizer(T context) {
             this.context = context;
         }
 
-        public static Organizer With(Context context = null) {
+        public static Organizer<T> With(Context context = null) {
             if( context == null ) {
                 context = new Context();
             }
 
-            return new Organizer(context);
+            return new Organizer<T>(context);
         }
 
-        public Context Reduce(IAction[] actions) {
-            foreach( IAction action in actions ) {
+        public Context Reduce(IAction<T>[] actions) {
+            foreach( IAction<T> action in actions ) {
                 this.context = action.Executed(this.context);
             }
 

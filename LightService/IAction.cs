@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LightService {
-    public interface IAction {
-        Context Executed(Context context);
+    public interface IAction<T> {
+        T Executed(T context);
     }
 }
