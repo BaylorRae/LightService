@@ -23,7 +23,7 @@ namespace LightService {
             return new Organizer<T>(context);
         }
 
-        public Context Reduce(IAction<T>[] actions) {
+        public T Reduce(IAction<T>[] actions) {
             foreach( IAction<T> action in actions ) {
                 this.context = action.Executed(this.context);
             }

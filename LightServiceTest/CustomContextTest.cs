@@ -14,6 +14,17 @@ namespace LightServiceTest {
             Assert.AreEqual("new message", newContext.Message);
         }
 
+        internal class ExampleOrganizer : LightService.Organizer<CustomContext> {
+
+            public CustomContext DoSomething() {
+                LightService.IAction<CustomContext>[] actions = new LightService.IAction<CustomContext>[] {
+                    new ExampleAction()
+                };
+                return With().Reduce(actions);
+            }
+
+        }
+
         internal class ExampleAction : LightService.IAction<CustomContext> {
             public CustomContext Executed(CustomContext context) {
                 context.Message = "new message";
