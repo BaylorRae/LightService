@@ -22,7 +22,6 @@ interest and I thought it would be a fun exercise to rewrite it in C#.
 ## Example
 
 ```c#
-
 // CONTROLLER
 namespace LightServiceDemo.Controllers {
   public class OrdersController : Controller {
@@ -99,9 +98,6 @@ namespace LightServiceDemo.Actions {
     }
   }
 }
-
-
-
 ```
 
 [Simple and Elegant Rails Code with Functional Style]: http://www.adomokos.com/2013/06/simple-and-elegant-rails-code-with.html
