@@ -1,7 +1,4 @@
 # Light Service in C# 
-This project has been written by a Ruby developer with no experience in C#. I
-wanted to learn C# and thought this would be a fun way to introduce myself to
-the language.
 
 I watched Attila Domokos' talk on [Simple and Elegant Rails Code with Functional
 Style] where he introduced [Light Service]. The concept immediately captured my
