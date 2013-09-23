@@ -14,6 +14,14 @@ interest and I thought it would be a fun exercise to rewrite it in C#.
 - Logic can be spread out into multiple classes to simplify code and ease
   testing.
 
+## LightService terms
+
+- **Contexts** are basically Value objects that store data.
+- **Organizers** invoke an array of actions and create a Context that is shared
+  among the Actions.
+- **Actions** take the information from the context, manipulate the data inside
+  it, and pass it to the next action.
+
 ## Example
 
 ```c#
