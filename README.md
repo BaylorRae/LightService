@@ -100,5 +100,10 @@ namespace LightServiceDemo.Actions {
 }
 ```
 
+## TODO
+
+- Add way to break early from the loop of calling Actions.
+  - this needs to be done with failing or succeeding early
+
 [Simple and Elegant Rails Code with Functional Style]: http://www.adomokos.com/2013/06/simple-and-elegant-rails-code-with.html
 [Light Service]: https://github.com/adomokos/light-service
